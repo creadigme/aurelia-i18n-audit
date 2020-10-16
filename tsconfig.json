@@ -1,0 +1,32 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "sourceMap": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "removeComments": false,
+    "stripInternal": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noUnusedLocals" : true,
+    "lib": ["es2017", "esnext"],
+    "baseUrl": "./src",
+    "outDir": "./build",
+    "newLine": "LF"
+  },
+  "exclude": [
+    "./build",
+    "./node_modules",
+    "./samples"
+  ],
+  "filesGlob": [
+    "./src/**/*.ts"
+  ],
+  "atom": {
+    "rewriteTsconfig": false
+  }
+}

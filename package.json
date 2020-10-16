@@ -1,0 +1,96 @@
+{
+  "name": "@creadigme/au-i18n-audit",
+  "version": "0.8.0",
+  "description": "Aurelia I18N Audit",
+  "main": "dist/au-i18n-audit",
+  "scripts": {
+    "lint": "eslint ./src/**/*.{js,ts,tsx}",
+    "lint:fix": "eslint ./src/**/*.{js,ts,tsx} --fix",
+    "test": "nyc node_modules/mocha/bin/_mocha",
+    "tsc": "./node_modules/.bin/tsc -p ./tsconfig.json",
+    "build": "webpack"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creadigme/au-i18n-audit.git"
+  },
+  "keywords": [
+    "aurelia",
+    "i18n",
+    "lint"
+  ],
+  "author": "Creadigme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/creadigme/au-i18n-audit/issues"
+  },
+  "homepage": "https://github.com/creadigme/au-i18n-audit#readme",
+  "mocha": {
+    "fullTrace": true,
+    "spec": "build/**/*.spec.js",
+    "bail": true,
+    "require": "source-map-support/register"
+  },
+  "nyc": {
+    "sourceMap": true,
+    "instrument": true,
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "build/**/*.js",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "build/**/*.spec.js",
+      "src/**/*.spec.ts"
+    ],
+    "reporter": [
+      "lcov",
+      "text-summary",
+      "html"
+    ]
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.0.0",
+    "@types/exceljs": "^1.3.0",
+    "@types/express": "^4.17.8",
+    "@types/fs-extra": "^9.0.1",
+    "@types/js-yaml": "^3.12.5",
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^12.12.67",
+    "@types/node-fetch": "^2.5.7",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "express": "^4.17.1",
+    "mocha": "^8.1.3",
+    "nyc": "^15.1.0",
+    "prettier": "^2.1.2",
+    "source-map-support": "^0.5.19",
+    "typescript": "^4.0.3",
+    "webpack": "^5.1.0",
+    "webpack-cli": "^4.0.0",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.1",
+    "command-line-args": "^5.1.1",
+    "fast-glob": "^3.2.4",
+    "flat": "^5.0.2",
+    "fs-extra": "^9.0.1",
+    "js-yaml": "^3.14.0",
+    "node-fetch": "^2.6.1"
+  },
+  "peerDependencies": {
+    "exceljs": "^4.1.1"
+  },
+  "bin": {
+    "au-i18n-audit": "./dist/au-i18n-audit-cli.js"
+  }
+}

@@ -20,13 +20,16 @@
   "keywords": [
     "aurelia",
     "i18n",
-    "lint"
+    "i18next",
+    "lint",
+    "audit",
+    "validator"
   ],
   "files": [
     "dist/",
     "LICENSE"
   ],
-  "author": "Creadigme",
+  "author": "creadigme",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/creadigme/au-i18n-audit/issues"

@@ -1,6 +1,6 @@
 [![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/creadigme/au-i18n-audit)
 [![Downloads](https://img.shields.io/npm/dm/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/creadigme/au-i18n-audit)
-[![Build Status](https://github.com/Creadigme/au-i18n-audit/workflows/Node.js%20CI/badge.svg)](https://github.com/creadigme/au-i18n-audit/actions)
+[![Build Status](https://github.com/creadigme/au-i18n-audit/workflows/Node.js%20CI/badge.svg)](https://github.com/creadigme/au-i18n-audit/actions)
 <br />
 
 # Aurelia I18N Audit

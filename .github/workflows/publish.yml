@@ -12,9 +12,10 @@ jobs:
       with:
         node-version: '12.x'
         registry-url: 'https://registry.npmjs.org'
+    - name: Package version
+      run: npm version ${{ github.event.release.tag_name }}
     - name: Install modules
       run: npm install
-    - run: npm version ${{ github.event.release.tag_name }}
     - name: Lint
       run: npm run lint
     - name: Build

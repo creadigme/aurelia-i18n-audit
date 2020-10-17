@@ -25,5 +25,8 @@ jobs:
       run: npm run tsc && npm run build
     - name: Test
       run: npm test
+    - name: Upload coverage
+      run: npm run coverage
       env:
         CI: true
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

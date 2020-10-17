@@ -1,5 +1,4 @@
-[![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/creadigme/au-i18n-audit)
-[![Downloads](https://img.shields.io/npm/dm/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/creadigme/au-i18n-audit)
+[![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/@creadigme/au-i18n-audit)
 [![Build Status](https://github.com/creadigme/au-i18n-audit/workflows/Node.js%20CI/badge.svg)](https://github.com/creadigme/au-i18n-audit/actions)
 <br />
 
@@ -7,6 +6,11 @@
 
 Aurelia I18N Audit bring more control over your translations. With the integrate CLI you can check if all your translations keys is used, more importantly, you will be able to find the ones that are not defined.
 
+This tool is intended to be used with projects based on [Aurelia framework](https://aurelia.io/) + [i18next](https://www.i18next.com/). It could also work with projects using only  [i18next](https://www.i18next.com/).
+
+[![aurelia logo](https://aurelia.io/styles/images/logo.svg "Aurelia")](https://aurelia.io/)
+
+<a href="https://www.i18next.com/" target="_blank"><img src="https://gblobscdn.gitbook.com/spaces%2F-L9iS6Wm2hynS5H9Gj7j%2Favatar.png?alt=media" alt="i18next logo" height="100"/></a>
 
 ## Installation
 
@@ -30,6 +34,7 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --ignore-keys | Provide the ability to ignore specific keys | `^(shop|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 
+
 | Level | Description 
 |---|---|
 | `0` | Easy: just have all languages ok
@@ -40,14 +45,15 @@ npm i @creadigme/au-i18n-audit --save-dev
 
 | Directory |  |  |  |  |
 |---|---|---|---|---|
-| `./samples` | `/case_01` | `/i18n` | `/fr` | `/EASY.yml`
-|  |  | `/src` | `/sample.html` | 
-|  |  | | `/sample.ts` | 
+| `./i18n` | `/fr` | `/EASY.yml`
+|  | `/en` | `/EASY.yml`
+| `./src` | `/sample.html` | 
+|  | `/sample.ts` | 
 
 
 ```json
 "scripts": {
-  "i18n" : "node au-i18n-audit --src ./src/ --i18n ./i18n --reporter summary"
+  "i18n" : "au-i18n-audit --src ./src/ --i18n ./i18n --reporter summary"
 }
 ```
 
@@ -67,9 +73,9 @@ import { I18NAudit } from '@creadigme/au-i18n-audit';
 
 async () => {
   const audit = new I18NAudit({
-    srcPaths : [path.resolve(".\\samples\\case_01\\src")],
+    srcPaths : [path.resolve(".\\src")],
     local : {
-      i18nPaths : [path.resolve(".\\samples\\case_01\\i18n")]
+      i18nPaths : [path.resolve(".\\i18n")]
     }
   });
 

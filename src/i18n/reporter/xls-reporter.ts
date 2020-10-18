@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from 'fs-extra';
 import * as c from 'ansi-colors';
 import { II18NAuditResults } from '../i-i18n-audit-results';
 import { IReporter } from './i-reporter';
@@ -27,8 +28,14 @@ export class XLSReporter implements IReporter {
       this._addWorksheetForNS(details, workbook, ns);
     });
 
-    const outputFilePath = path.join(path.resolve(options.output || process.cwd()), options.output?.endsWith('.xlsx') || options.output?.endsWith('.xls') ? undefined : 'i18n_report.xlsx');
+    let outputFilePath: string;
+    if (options.output?.endsWith('.xls') || options.output?.endsWith('.xlsx')) {
+      outputFilePath = path.resolve(options.output);
+    } else {
+      outputFilePath = path.join(path.resolve(path.resolve(options.output || process.cwd()), 'i18n_report.xlsx'));
+    }
 
+    await fs.ensureDir(path.dirname(outputFilePath));
     await workbook.xlsx.writeFile(outputFilePath);
 
     console.log(c.green(`[i18n] XSLX report available : "${outputFilePath}"`));

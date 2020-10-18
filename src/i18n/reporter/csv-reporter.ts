@@ -31,12 +31,18 @@ export class CSVReporter implements IReporter {
       csv += `"${info.key}";true;true;${details.languages.map(() => '').join(';')}\r\n`;
     });
 
-    const outputFilePath = path.join(path.resolve(options.output || process.cwd()), options.output?.endsWith('.csv') ? undefined : 'i18n_report.csv');
+    let outputFilePath: string;
+    if (options.output?.endsWith('.csv')) {
+      outputFilePath = path.resolve(options.output);
+    } else {
+      outputFilePath = path.join(path.resolve(path.resolve(options.output || process.cwd()), 'i18n_report.csv'));
+    }
 
-    console.log(c.green(`[i18n] CSV report available : "${outputFilePath}"`));
-
-    return fs.writeFile(outputFilePath, csv, {
+    await fs.ensureDir(path.dirname(outputFilePath));
+    await fs.writeFile(outputFilePath, csv, {
       encoding: 'utf8',
     });
+
+    console.log(c.green(`[i18n] CSV report available : "${outputFilePath}"`));
   }
 }

@@ -47,60 +47,44 @@ export class I18NSeeker {
         /** [xxx]ns:key.nested or ns:key.nested */
         regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${ns}([\\w\\-]{1,})${key}([\\w\\-]{1,})`, 'i'),
         parse: result => {
-          if (result?.length) {
-            return {
-              ns: result[2],
-              key: result[3],
-              subkey: result[4],
-            };
-          } else {
-            return null;
-          }
+          return {
+            ns: result[2],
+            key: result[3],
+            subkey: result[4],
+          };
         },
       },
       {
         /** [xxx]ns:key or ns:key */
         regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${ns}([\\w\\-]{1,})`, 'i'),
         parse: result => {
-          if (result?.length) {
-            return {
-              ns: result[2],
-              key: result[3],
-              subkey: null,
-            };
-          } else {
-            return null;
-          }
+          return {
+            ns: result[2],
+            key: result[3],
+            subkey: null,
+          };
         },
       },
       {
         /** [xxx]key.nested or key.nested */
         regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${key}([\\w\\-]{1,})`, 'i'),
         parse: result => {
-          if (result?.length) {
-            return {
-              ns: null,
-              key: result[2],
-              subkey: result[3],
-            };
-          } else {
-            return null;
-          }
+          return {
+            ns: null,
+            key: result[2],
+            subkey: result[3],
+          };
         },
       },
       {
         /** [xxx]key or key */
         regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})`, 'i'),
         parse: result => {
-          if (result?.length) {
-            return {
-              ns: null,
-              key: result[2],
-              subkey: null,
-            };
-          } else {
-            return null;
-          }
+          return {
+            ns: null,
+            key: result[2],
+            subkey: null,
+          };
         },
       },
     ];
@@ -188,9 +172,9 @@ export class I18NSeeker {
           const goodRegex = this._i18nRegexTag.find(reg => reg.regex.test(f));
           if (goodRegex) {
             goodRegex.regex.lastIndex = -1;
-            const rr = goodRegex.parse(goodRegex.regex.exec(f));
-            if (rr) {
-              callback(rr, linePos, colPos);
+            const nsKeySub = goodRegex.regex.exec(f);
+            if (nsKeySub?.length) {
+              callback(goodRegex.parse(nsKeySub), linePos, colPos);
             }
           }
         });

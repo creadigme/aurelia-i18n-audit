@@ -109,24 +109,24 @@ export class I18NSeeker {
       /** Get NS & KEY */
       builtIn: [
         /** Converter 'XXX.YYYY' | t or 'XXX.YYYY'*/
-        new RegExp(`'([\\w\\-${ns}${key}]{3,})' [\\|&] t\\b`, 'gi'),
+        new RegExp(`'([\\w\\-${ns}${key}]{3,})' [\\|&] t\\b`, 'g'),
         /** Converter "XXX.YYYY" | t or "XXX.YYYY" & t*/
-        new RegExp(`"([\\w\\-${ns}${key}]{3,})" [\\|&] t\\b`, 'gi'),
+        new RegExp(`"([\\w\\-${ns}${key}]{3,})" [\\|&] t\\b`, 'g'),
         /** Attribute "t" t="XXX.YYYY" */
-        new RegExp(`\\b[${attributes.join('')}]="([\\w\\-;\\]\\[${ns}${key}]{3,})"`, 'gi'),
+        new RegExp(`\\b[${attributes.join('')}]="([\\w\\-;\\]\\[${ns}${key}]{3,})"`, 'g'),
         /** Nested I18N $t(XXX.YY) **/
-        new RegExp(`\\$t\\(([\\w\\-${ns}${key}]{3,})\\)`, 'gi'),
+        new RegExp(`\\$t\\(([\\w\\-${ns}${key}]{3,})\\)`, 'g'),
         /** i18n.tr function .tr("xxx") */
-        new RegExp(`\\.tr\\("([\\w\\-${ns}${key}]{3,})"`, 'gi'),
+        new RegExp(`\\.tr\\("([\\w\\-${ns}${key}]{3,})"`, 'g'),
         /** i18n.tr function .tr('xxx') */
-        new RegExp(`\\.tr\\('([\\w\\-${ns}${key}]{3,})'`, 'gi'),
+        new RegExp(`\\.tr\\('([\\w\\-${ns}${key}]{3,})'`, 'g'),
       ],
       /** Custom RegExps */
       custom: this._options.customMatchers,
       /** Discovery mode */
       discovery: this._options.autoDiscovery
         ? namespaces.map(namespace => {
-            return new RegExp(`['"](${namespace}${ns}[\\w\\-${key}]{3,})['"]`, 'gi');
+            return new RegExp(`['"](${namespace}${ns}[\\w\\-${key}]{3,})['"]`, 'g');
           })
         : [],
     };

@@ -12,7 +12,7 @@ export class ConsoleReporter implements IReporter {
     console.log(c.green(`[i18n] ${details.languages.length} languages detected (${details.languages.join(', ')}).`));
 
     if (details.unused.length) {
-      console.log(c.bold.yellow(`[i18n] ${details.unused.length} keys seems not to be used (maybe server side ?).`));
+      console.log(c.bold.yellow(`[i18n] ${details.unused.length} keys seems not to be used (maybe server side?).`));
       if (!this._onlySummary) {
         console.log(c.yellow(`\t${details.unused.join('\n\t')}\n`));
       }

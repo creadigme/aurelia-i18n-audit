@@ -1,12 +1,6 @@
 import * as express from 'express';
 import { Server } from 'http';
 
-describe('fake-i18n-backend', () => {
-  it('useless', () => {
-    // Useless
-  });
-});
-
 export class FakeI18NBackend {
   private readonly _app: express.Express;
   private _server: Server;

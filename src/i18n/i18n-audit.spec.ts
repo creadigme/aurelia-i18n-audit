@@ -1,8 +1,9 @@
 import { I18NAudit } from './i18n-audit';
 import * as path from 'path';
-import { FakeI18NBackend } from '../test/fake-i18n-backend.spec';
+import { FakeI18NBackend } from '../test/fake-i18n-backend';
 import * as assert from 'assert';
 import { ELevel } from './e-level';
+import { I18NAuditOptions } from './i18n-audit-options';
 
 describe('i18n-audit', () => {
   describe('lint', () => {
@@ -22,14 +23,35 @@ describe('i18n-audit', () => {
         assert.strictEqual(Object.keys(details.missingKeys).length, 2);
       });
 
+      it('without srcPaths', async () => {
+        const audit = new I18NAudit(
+          new I18NAuditOptions({
+            srcPaths: undefined,
+            local: {
+              i18nPaths: [path.resolve('.\\samples\\case_01\\i18n')],
+            },
+            level: ELevel.EASY,
+          })
+        );
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, true);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 4);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 0);
+      });
+
       it('easy', async () => {
-        const audit = new I18NAudit({
-          srcPaths: [path.resolve('.\\samples\\case_01\\src')],
-          local: {
-            i18nPaths: [path.resolve('.\\samples\\case_01\\i18n')],
-          },
-          level: ELevel.EASY,
-        });
+        const audit = new I18NAudit(
+          new I18NAuditOptions({
+            srcPaths: [path.resolve('.\\samples\\case_01\\src')],
+            local: {
+              i18nPaths: [path.resolve('.\\samples\\case_01\\i18n')],
+            },
+            level: ELevel.EASY,
+          })
+        );
 
         await audit.initializeAsync();
         const details = await audit.validateAsync();
@@ -63,6 +85,9 @@ describe('i18n-audit', () => {
             i18nPaths: [path.resolve('.\\samples\\case_01\\i18n')],
           },
           level: ELevel.HARD,
+          i18nConfig: {
+            attributes: [],
+          },
         });
 
         await audit.initializeAsync();
@@ -103,7 +128,29 @@ describe('i18n-audit', () => {
         fakeI18nBackend.stop();
       });
 
-      it('html with i18n', async () => {
+      it('Bad backend', async () => {
+        const audit = new I18NAudit({
+          i18nConfig: {
+            namespaces: ['EASY'],
+            languages: ['en', 'fr'],
+          },
+          remote: {
+            url: `http://localhost:${fakeI18nBackend.port}/xxxxx/{{ns}}/{{lang}}`,
+          },
+          srcPaths: [path.resolve('.\\samples\\case_01\\src')],
+        });
+
+        try {
+          await audit.initializeAsync();
+          assert.fail('No way, this audit must throw an error.');
+        } catch (error) {
+          if (error.message !== 'Invalid HTTP response: Not Found (http://localhost:8085/xxxxx/EASY/en).') {
+            throw error;
+          }
+        }
+      });
+
+      it('Good backend', async () => {
         const audit = new I18NAudit({
           i18nConfig: {
             namespaces: ['EASY'],

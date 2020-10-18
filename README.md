@@ -1,4 +1,5 @@
 [![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/@creadigme/au-i18n-audit)
+[![codecov](https://codecov.io/gh/creadigme/au-i18n-audit/branch/master/graph/badge.svg?token=GXFW0MRHHJ)](https://github.com/creadigme/au-i18n-audit)
 [![Build Status](https://github.com/creadigme/au-i18n-audit/workflows/Node.js%20CI/badge.svg)](https://github.com/creadigme/au-i18n-audit/actions)
 <br />
 
@@ -23,9 +24,10 @@ npm i @creadigme/au-i18n-audit --save-dev
 | Parameter | Description | Sample | Mandatory | Multiple
 |---|---|---|---|---|
 | --src | Sources directory | `./src/` | true | true
-| --i18n | i18n files directory | `./i18n/` | true | true
-| --reporter | Reporter : `summary`, `text`, `csv`, `xls` (`npm i exceljs@^4 --save-dev` mandatory) | `summary` | false | true
-| --output | Directory or file path of report : only used with reporter `csv` and  `xlsx` | `./i18n_report/` | false | false
+| --i18n | i18n files directory | `./i18n/` | false<sup>1</sup> | true
+| --remote-i18n | i18n backend | `http://localhost:8085/i18n/{{ns}}/{{lang}}` | false<sup>1</sup> | true
+| --reporter | Reporter : `summary`, `text`, `csv`, `xls`<sup>2</sup> | `summary` | false | true
+| --output | Directory or file path of report (*only used with reporter `csv` and  `xls`*) | `./i18n_report/` | false | false
 | --level | Figure out if we finish with 0 code error or 1 (see Level bellow) | false | false
 | --lang | Language | `en` | false | true
 | --namespace | Namespace | `cart` | false | true
@@ -34,7 +36,8 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --ignore-keys | Provide the ability to ignore specific keys | `^(shop|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 
-
+<sup>1. *`--i18n` or `--remote-i18n` must be specified (or both).*</sup>
+<sup>2. *manual `npm i exceljs@^4 --save-dev` mandatory.*
 | Level | Description 
 |---|---|
 | `0` | Easy: just have all languages ok
@@ -43,13 +46,27 @@ npm i @creadigme/au-i18n-audit --save-dev
 
 ## Usage
 
-| Directory |  |  |  |  |
-|---|---|---|---|---|
-| `./i18n` | `/fr` | `/EASY.yml`
-|  | `/en` | `/EASY.yml`
-| `./src` | `/sample.html` | 
-|  | `/sample.ts` | 
+### Local I18N
 
+1. Check the directories of your project, example :
+
+```shell
+
+├── i18n
+│   ├── fr
+│   │   ├── NS1.{yml,json}
+│   │   └── NS2.{yml,json}
+│   └── en
+│       ├── NS1.{yml,json}
+│       └── NS2.{yml,json}
+└── src
+    ├── file1.{js,ts}
+    ├── file2.{js,ts}
+    └── file3.{js,ts}
+
+```
+
+2. Add i18n script
 
 ```json
 "scripts": {
@@ -57,14 +74,33 @@ npm i @creadigme/au-i18n-audit --save-dev
 }
 ```
 
+3. Launch i18n script
+
 ```shell
 npm run i18n
 # [i18n] @creadigme/au-i18n-audit v0.8.0.
 # [i18n] 2 languages detected (en, fr).
-# [i18n] 132 keys seems not to be used (maybe server side ?).
+# [i18n] 132 keys seems not to be used (maybe server side?).
 # [i18n] 21 keys are not defined.
 # [i18n] 1 keys do not have all the languages translated.
 ```
+
+### Remote I18N
+
+You must provide:
+- `--remote-i18n` of your i18n backend, with `{{ns}}` and `{{lang}}`.
+Example: `http://localhost:8085/i18n/{{ns}}/{{lang}}`
+- `--namespace` for iterate over your namespaces.
+- `--lang` for iterate over your languages.
+
+
+
+```json
+"scripts": {
+  "i18n" : "au-i18n-audit --src ./src/ --remote-i18n http://localhost:8085/i18n/{{ns}}/{{lang}} --namespace NS --lang en --lang fr --reporter summary"
+}
+```
+
 
 ### API
 

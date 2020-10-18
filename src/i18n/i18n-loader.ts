@@ -58,21 +58,41 @@ export class I18NLoader {
   }
 
   /**
+   * Load translations from a local directory or/and remote backend
+   */
+  public static async getI18nAsync(
+    i18nConfig: II18NConfig,
+    options: {
+      local?: ILocalOptions;
+      remote?: IRemoteOptions;
+    }
+  ) {
+    const data = I18NLoader._initData(i18nConfig);
+
+    if (options.local) {
+      await I18NLoader._fillLocalI18nAsync(options.local, data);
+    }
+
+    if (options.remote) {
+      await I18NLoader._fillRemoteI18nAsync(i18nConfig, options.remote, data);
+    }
+
+    return data;
+  }
+  /**
    * Load translations from a local directory
    */
-  public static async getLocalI18nAsync(
-    i18nConfig: II18NConfig,
-    localOptions: ILocalOptions
-  ): Promise<{
-    languages: string[];
-    keys: I18NKeys;
-  }> {
+  private static async _fillLocalI18nAsync(
+    localOptions: ILocalOptions,
+    data: {
+      languages: string[];
+      keys: I18NKeys;
+    }
+  ): Promise<void> {
     const options = {
       paths: localOptions.i18nPaths?.map(f => PathUtils.forwardSlash(path.join(f, '/**/*.{json,yml}'))) || [],
       nsResolver: localOptions.i18nNSResolver || I18NLoader._defaultI18nNSResolver,
     };
-
-    const data = I18NLoader._initData(i18nConfig);
 
     const jsonFiles = await fg(options.paths);
     const resolver = options.nsResolver;
@@ -98,20 +118,17 @@ export class I18NLoader {
         data.languages.push(lang);
       }
     }
-
-    return data;
   }
 
-  /** Loads translations from a local directory */
-  public static async getRemoteI18nAsync(
+  /** Loads translations from a remote backend */
+  private static async _fillRemoteI18nAsync(
     i18nConfig: II18NConfig,
-    options: IRemoteOptions
-  ): Promise<{
-    languages: string[];
-    keys: I18NKeys;
-  }> {
-    const data = I18NLoader._initData(i18nConfig);
-
+    options: IRemoteOptions,
+    data: {
+      languages: string[];
+      keys: I18NKeys;
+    }
+  ): Promise<void> {
     const urlPattern = options.url;
     /** Urls */
     const urlsInfo: Array<{ url: string; ns: string; lang: string }> = [];
@@ -131,9 +148,13 @@ export class I18NLoader {
 
     for (let i = 0; i < urlsInfo.length; i++) {
       const { url, ns, lang } = urlsInfo[i];
-      const jsonData = await fetch(url)
-        .then(res => res.text())
-        .catch(() => null);
+      const jsonData = await fetch(url).then(res => {
+        if (res.status >= 200 && res.status < 400) {
+          return res.text();
+        } else {
+          throw new Error(`Invalid HTTP response: ${res.statusText || res.status} (${url}).`);
+        }
+      });
 
       if (jsonData) {
         // Nested keys are flatten
@@ -142,14 +163,8 @@ export class I18NLoader {
         Object.keys(transData).forEach(key => {
           I18NLoader._ensureTrans(data.keys, ns, key, lang, transData[key]);
         });
-
-        if (data.languages.indexOf(lang) === -1) {
-          data.languages.push(lang);
-        }
       }
     }
-
-    return data;
   }
 
   /**

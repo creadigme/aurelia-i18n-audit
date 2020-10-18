@@ -44,11 +44,10 @@ export class I18NAudit {
       keys: {},
     };
 
-    if (this._options.local) {
-      data = await I18NLoader.getLocalI18nAsync(this._options.i18nConfig, this._options.local);
-    } else if (this._options.remote) {
-      data = await I18NLoader.getRemoteI18nAsync(this._options.i18nConfig, this._options.remote);
-    }
+    data = await I18NLoader.getI18nAsync(this._options.i18nConfig, {
+      local: this._options.local,
+      remote: this._options.remote,
+    });
 
     this._definedLanguages = data.languages;
     this._definedKeys = data.keys;

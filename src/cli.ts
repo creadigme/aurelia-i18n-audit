@@ -5,6 +5,7 @@ import { CLIReporter } from './i18n/cli-reporter';
 const optionDefinitions = [
   { name: 'src', type: String, multiple: true },
   { name: 'i18n', type: String, multiple: true },
+  { name: 'remote-i18n', type: String, multiple: false },
   { name: 'lang', type: String, multiple: true },
   { name: 'namespace', type: String, multiple: true },
   { name: 'ignore-keys', type: String },
@@ -25,9 +26,16 @@ const options = commandLineArgs(optionDefinitions);
 
 CLIReporter.cliAsync({
   srcPaths: options.src,
-  local: {
-    i18nPaths: options.i18n,
-  },
+  local: options.i18n
+    ? {
+        i18nPaths: options.i18n,
+      }
+    : undefined,
+  remote: options['remote-i18n']
+    ? {
+        url: options['remote-i18n'],
+      }
+    : undefined,
   reporters: options.reporter,
   mode: options.mode,
   output: options.output,

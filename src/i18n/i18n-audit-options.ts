@@ -43,9 +43,10 @@ export class I18NAuditOptions {
         if (!this.i18nConfig.nestedSeparator) {
           this.i18nConfig.nestedSeparator = '.';
         }
-        if (this.i18nConfig.attributes?.length === 0) {
+        if (!this.i18nConfig.attributes?.length) {
           this.i18nConfig.attributes = ['t'];
         }
+        this._isInit = true;
       }
     }
   }

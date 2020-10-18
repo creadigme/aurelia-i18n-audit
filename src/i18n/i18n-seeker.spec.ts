@@ -348,7 +348,7 @@ describe('i18n-seeker', () => {
           {
             nsSeparator: ':',
             nestedSeparator: '.',
-            defaultNS: undefined,
+            defaultNS: 'EASY',
             attributes: ['t'],
             autoDiscovery: true,
           },
@@ -393,13 +393,16 @@ describe('i18n-seeker', () => {
       const customSeeker: I18NSeeker = new I18NSeeker();
 
       before(async () => {
-        await customSeeker.initialize({
-          nsSeparator: ':',
-          nestedSeparator: '.',
-          defaultNS: undefined,
-          attributes: ['t'],
-          customMatchers: [/['"](EASY\:[\w\-:\.]{3,})['"]/gi, /['"](EASY\.[\w\-:\.]{3,})['"]/gi, /['"](KEY\.[\w\-:\.]{3,})['"]/gi],
-        });
+        await customSeeker.initialize(
+          {
+            nsSeparator: ':',
+            nestedSeparator: '.',
+            defaultNS: undefined,
+            attributes: ['t'],
+            customMatchers: [/['"](EASY\:[\w\-:\.]{3,})['"]/gi, /['"](EASY\.[\w\-:\.]{3,})['"]/gi, /['"](KEY\.[\w\-:\.]{3,})['"]/gi],
+          },
+          ['translation']
+        );
       });
 
       it('ns:key.subkey', async () => {

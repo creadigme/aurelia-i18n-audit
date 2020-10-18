@@ -466,6 +466,25 @@ describe('i18n-seeker', () => {
         assert.strictEqual(keys.length, 0);
       });
     });
+
+    describe('JS file - i18n.tr(', () => {
+      it('ns:key.subkey', async () => {
+        const keys = getI18NKeys(
+          seeker,
+          `
+          function something() {
+            // this.i18n.tr('EASY:ANOTHER.ONE')
+            return [this.i18n.tr('EASY:KEY.START'), this.i18n.tr("EASY:KEY.STOP"), this.something.ab('EASY:KEY3')];
+          }`,
+          '.js'
+        );
+
+        assert.strictEqual(keys.length, 2);
+
+        assert.strictEqual(keys[0], 'EASY:KEY.START');
+        assert.strictEqual(keys[1], 'EASY:KEY.STOP');
+      });
+    });
   });
 });
 

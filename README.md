@@ -23,21 +23,23 @@ npm i @creadigme/au-i18n-audit --save-dev
   
 | Parameter | Description | Sample | Mandatory | Multiple
 |---|---|---|---|---|
-| --src | Sources directory | `./src/` | true | true
-| --i18n | i18n files directory | `./i18n/` | false<sup>1</sup> | true
+| --src | Sources directory *(js, ts or html)* | `./src/` | true | true
+| --i18n | i18n files directory *(json or yml)* | `./i18n/` | false<sup>1</sup> | true
 | --remote-i18n | i18n backend | `http://localhost:8085/i18n/{{ns}}/{{lang}}` | false<sup>1</sup> | true
-| --reporter | Reporter : `summary`, `text`, `csv`, `xls`<sup>2</sup> | `summary` | false | true
+| --reporter | Reporter : `summary`, `text`, `csv`, `xls`<sup style="color:red">2</sup> | `summary` | false | true
 | --output | Directory or file path of report (*only used with reporter `csv` and  `xls`*) | `./i18n_report/` | false | false
 | --level | Figure out if we finish with 0 code error or 1 (see Level bellow) | false | false
 | --lang | Language | `en` | false | true
 | --namespace | Namespace | `cart` | false | true
 | --namespace-sep | NS separator (default `:`) | `$` | false | false
 | --nested-sep | Sub key separator (default `.`) | `~` | false | false
-| --ignore-keys | Provide the ability to ignore specific keys | `^(shop|other)\\.` | false | false
+| --ignore-keys | Provide the ability to ignore specific keys | `^(shop\|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 
-<sup>1. *`--i18n` or `--remote-i18n` must be specified (or both).*</sup>
-<sup>2. *manual `npm i exceljs@^4 --save-dev` mandatory.*
+- 1. *`--i18n` or `--remote-i18n` must be specified (or both).*
+- 2. *manual `npm i exceljs@^4 --save-dev` mandatory.*
+
+
 | Level | Description 
 |---|---|
 | `0` | Easy: just have all languages ok

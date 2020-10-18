@@ -30,7 +30,7 @@ export class I18NAuditOptions {
       if (options._isInit) {
         Object.assign(this, options);
       } else {
-        this.srcPaths = options.srcPaths?.map(f => PathUtils.forwardSlash(path.join(f, `/**/!(*.spec).{ts,html}`))) || [];
+        this.srcPaths = options.srcPaths?.map(f => PathUtils.forwardSlash(path.join(f, `/**/!(*.spec).{ts,js,html}`))) || [];
         this.ignoreKeys = options.ignoreKeys;
         this.level = options.level || ELevel.MEDIUM;
         this.local = options.local;

@@ -158,7 +158,6 @@ export class I18NAudit {
       const filePath = tsFiles[i];
 
       const ext = path.extname(filePath);
-      // const regex = ext === '.ts' ? I18nScanner._TS_I18N_REGEX : I18nScanner._HTML_I18N_REGEX;
 
       const content = await fs.readFile(filePath, {
         encoding: 'utf8',

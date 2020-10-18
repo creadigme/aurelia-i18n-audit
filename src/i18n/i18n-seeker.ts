@@ -119,7 +119,7 @@ export class I18NSeeker {
   /**
    * Search I18N keys, the callback is called for each key found
    * @param content file content
-   * @param ext file extension (.ts, .html)
+   * @param ext file extension (.ts, .js, .html)
    * @param callback on found
    */
   public searchI18NKeys(content: string, ext: string, callback: (res: IRegexTagResult, linePos: number, colPos: number) => void) {
@@ -161,7 +161,7 @@ export class I18NSeeker {
 
       let isInComment: boolean = false;
 
-      if (ext === '.ts') {
+      if (ext === '.ts' || ext === '.js') {
         const commIdx = lastLine.indexOf('//');
         isInComment = !!(commIdx !== -1 && commIdx < colPos);
       }

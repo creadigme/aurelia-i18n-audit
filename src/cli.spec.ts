@@ -130,6 +130,7 @@ describe('cli', () => {
           '',
         ]);
       } finally {
+        fs.unlinkSync(tmpCsv);
         fs.rmdirSync(tmpCsvDir, {
           recursive: true,
         });
@@ -171,6 +172,7 @@ describe('cli', () => {
         assert.strictEqual(workbook.worksheets[0].rowCount, 8);
         assert.strictEqual(workbook.worksheets[0].columnCount, 4);
       } finally {
+        fs.unlinkSync(tmpXlsx);
         fs.rmdirSync(tmpXlsxDir, {
           recursive: true,
         });

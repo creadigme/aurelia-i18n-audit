@@ -6,18 +6,21 @@ import { exec } from 'child_process';
 import * as fs from 'fs-extra';
 import * as ExcelJS from 'exceljs';
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const version = require('./../package.json').version;
+
 describe('cli', () => {
   describe('audit', () => {
     it('No argument', async () => {
       const res = await testCLIAsync();
       assert.strictEqual(res.exitCode, 0);
-      assert.strictEqual(res.stdout, '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m\n');
+      assert.strictEqual(res.stdout, `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m\n`);
     });
 
     it('reporter none', async () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n');
       assert.strictEqual(res.exitCode, 1);
-      assert.strictEqual(res.stdout, '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m\n');
+      assert.strictEqual(res.stdout, `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m\n`);
     });
 
     it('reporter summary', async () => {
@@ -25,7 +28,7 @@ describe('cli', () => {
       assert.strictEqual(res.exitCode, 1);
       assert.strictEqual(
         res.stdout,
-        '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m\n\u001b[32m[i18n] 1 languages detected (fr).\u001b[39m\n\u001b[1m\u001b[33m[i18n] 1 keys seems not to be used (maybe server side?).\u001b[39m\u001b[22m\n\u001b[1m\u001b[31m[i18n] 3 keys are not defined.\u001b[39m\u001b[22m\n'
+        `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m\n\u001b[32m[i18n] 1 languages detected (fr).\u001b[39m\n\u001b[1m\u001b[33m[i18n] 1 keys seems not to be used (maybe server side?).\u001b[39m\u001b[22m\n\u001b[1m\u001b[31m[i18n] 3 keys are not defined.\u001b[39m\u001b[22m\n`
       );
     });
 
@@ -33,7 +36,7 @@ describe('cli', () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'text');
       assert.strictEqual(res.exitCode, 1);
       assert.deepStrictEqual(res.stdout.split('\n'), [
-        '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m',
+        `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`,
         '\u001b[32m[i18n] 1 languages detected (fr).\u001b[39m',
         '\u001b[1m\u001b[33m[i18n] 1 keys seems not to be used (maybe server side?).\u001b[39m\u001b[22m',
         '\u001b[33m\tEASY:NOT_USED\u001b[39m',
@@ -56,7 +59,7 @@ describe('cli', () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'text', '--lang', 'fr', '--lang', 'en');
       assert.strictEqual(res.exitCode, 1);
       assert.deepStrictEqual(res.stdout.split('\n'), [
-        '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m',
+        `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`,
         '\u001b[32m[i18n] 2 languages detected (fr, en).\u001b[39m',
         '\u001b[1m\u001b[33m[i18n] 1 keys seems not to be used (maybe server side?).\u001b[39m\u001b[22m',
         '\u001b[33m\tEASY:NOT_USED\u001b[39m',
@@ -87,7 +90,7 @@ describe('cli', () => {
       try {
         const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'csv', '--output', `"${tmpCsv}"`);
         assert.strictEqual(res.exitCode, 1);
-        assert.strictEqual(res.stdout.split('\n')[0], '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m');
+        assert.strictEqual(res.stdout.split('\n')[0], `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`);
         const csvData = fs.readFileSync(tmpCsv, {
           encoding: 'utf8',
         });
@@ -114,7 +117,7 @@ describe('cli', () => {
       try {
         const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'csv', '--output', `"${tmpCsvDir}"`);
         assert.strictEqual(res.exitCode, 1);
-        assert.strictEqual(res.stdout.split('\n')[0], '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m');
+        assert.strictEqual(res.stdout.split('\n')[0], `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`);
         const csvData = fs.readFileSync(tmpCsv, {
           encoding: 'utf8',
         });
@@ -143,7 +146,7 @@ describe('cli', () => {
       try {
         const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'xls', '--output', `"${tmpXlsx}"`);
         assert.strictEqual(res.exitCode, 1);
-        assert.strictEqual(res.stdout.split('\n')[0], '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m');
+        assert.strictEqual(res.stdout.split('\n')[0], `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`);
 
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.readFile(tmpXlsx);
@@ -163,7 +166,7 @@ describe('cli', () => {
       try {
         const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'xls', '--output', `"${tmpXlsxDir}"`);
         assert.strictEqual(res.exitCode, 1);
-        assert.strictEqual(res.stdout.split('\n')[0], '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m');
+        assert.strictEqual(res.stdout.split('\n')[0], `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m`);
 
         const workbook = new ExcelJS.Workbook();
         await workbook.xlsx.readFile(tmpXlsx);
@@ -182,7 +185,7 @@ describe('cli', () => {
     it('bad reporter', async () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'something');
       assert.strictEqual(res.exitCode, 1);
-      assert.strictEqual(res.stdout, '\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v0.0.0-dev.\u001b[39m\u001b[24m\u001b[22m\n\u001b[31m[i18n] Invalid reporter: something..\u001b[39m\n');
+      assert.strictEqual(res.stdout, `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m\n\u001b[31m[i18n] Invalid reporter: something..\u001b[39m\n`);
     });
   });
 });

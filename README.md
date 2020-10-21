@@ -36,8 +36,8 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --ignore-keys | Provide the ability to ignore specific keys | `^(shop\|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 
-- 1. *`--i18n` or `--remote-i18n` must be specified (or both).*
-- 2. *manual `npm i exceljs@^4 --save-dev` mandatory.*
+> (1). `--i18n` or `--remote-i18n` must be specified (or both).
+> (2). manual `npm i exceljs@^4 --save-dev` mandatory.
 
 
 | Level | Description 

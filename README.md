@@ -26,7 +26,7 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --src | Sources directory *(js, ts or html)* | `./src/` | true | true
 | --i18n | i18n files directory *(json or yml)* | `./i18n/` | false<sup>1</sup> | true
 | --remote-i18n | i18n backend | `http://localhost:8085/i18n/{{ns}}/{{lang}}` | false<sup>1</sup> | true
-| --reporter | Reporter : `summary`, `text`, `csv`, `xls`<sup style="color:red">2</sup> | `summary` | false | true
+| --reporter | Reporter : [`summary`](#summary), [`text`](#text), [`csv`](#csv), [`xls`](#excel) | `summary` | false | true
 | --output | Directory or file path of report (*only used with reporter `csv` and  `xls`*) | `./i18n_report/` | false | false
 | --level | Figure out if we finish with 0 code error or 1 (see Level bellow) | false | false
 | --lang | Language | `en` | false | true
@@ -36,15 +36,17 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --ignore-keys | Provide the ability to ignore specific keys | `^(shop\|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 
-> (1). `--i18n` or `--remote-i18n` must be specified (or both).
-> (2). manual `npm i exceljs@^4 --save-dev` mandatory.
+---
 
+1. `--i18n` or `--remote-i18n` must be specified (or both).
+
+---
 
 | Level | Description 
 |---|---|
-| `0` | Easy: just have all languages ok
-| **`1`** | Medium: no missing keys & all languages ok (default)
-| `2` | Hard: no missing keys && no unused keys & all languages ok
+| `1` | Easy: just have all languages ok
+| **`2`** | Medium: no missing keys & all languages ok (default)
+| `3` | Hard: no missing keys && no unused keys & all languages ok
 
 ## Usage
 
@@ -123,3 +125,39 @@ async () => {
   console.log(details.isOk);
 }();
 ```
+
+## Reporters
+
+### Summary
+
+> `--reporter summary`
+
+![reporter summary](./static/audit-reporter-sumary.gif "--reporter summary")
+
+
+### Text
+
+> `--reporter text`
+
+![reporter text](./static/audit-reporter-text.gif "--reporter text")
+
+*:information_source: The paths to the sources (rows, columns) are clickable under Visual Studio Code.*
+
+### CSV
+
+> `--reporter csv`
+
+![reporter text](./static/audit-reporter-csv-1.gif "--reporter text")
+![reporter text](./static/audit-reporter-csv-2.gif "excel")
+
+*:information_source: The default folder is the working directory. Use `--output` to specify another one or a filename  (`xx.csv`).*
+
+
+### Excel
+
+> `--reporter xls`
+
+![reporter text](./static/audit-reporter-xls-1.gif "--reporter text")
+![reporter text](./static/audit-reporter-xls-2.gif "excel")
+
+*:information_source: The default folder is the working directory. Use `--output` to specify another one or a filename (`xx.xlsx`).*

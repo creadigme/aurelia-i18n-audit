@@ -135,7 +135,7 @@ export class I18NAudit {
     return missings;
   }
 
-  /** On vérifie les traductions non utilisées */
+  /** We check for unused translations */
   private _getUnsused() {
     const notUseds: string[] = [];
     const definedKeys = this._definedKeys;

@@ -6,8 +6,8 @@
   "license": "MIT",
   "main": "dist/au-i18n-audit.bundle",
   "bin": {
-    "au-i18n-audit": "./dist/au-i18n-audit-cli.js",
-    "aurelia-i18n-audit": "./dist/au-i18n-audit-cli.js"
+    "au-i18n-audit": "./dist/au-i18n-audit-cli.bundle.js",
+    "aurelia-i18n-audit": "./dist/au-i18n-audit-cli.bundle.js"
   },
   "typings": "dist/bundle.d.ts",
   "engines": {

@@ -1,7 +1,7 @@
 [![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/@creadigme/au-i18n-audit)
 [![Node.js CI](https://github.com/creadigme/aurelia-i18n-audit/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/creadigme/aurelia-i18n-audit/actions/workflows/ci.yml)
-[![CodeQL](https://github.com/creadigme/au-i18n-audit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/creadigme/aurelia-docgen/actions/workflows/codeql-analysis.yml)
-[![codecov](https://codecov.io/gh/creadigme/au-i18n-audit/branch/master/graph/badge.svg?token=GXFW0MRHHJ)](https://github.com/creadigme/au-i18n-audit)
+[![CodeQL](https://github.com/creadigme/aurelia-i18n-audit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/creadigme/aurelia-docgen/actions/workflows/codeql-analysis.yml)
+[![codecov](https://codecov.io/gh/creadigme/aurelia-i18n-audit/branch/master/graph/badge.svg?token=GXFW0MRHHJ)](https://codecov.io/gh/creadigme/aurelia-i18n-audit)
 [![License Badge](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 <br />
 

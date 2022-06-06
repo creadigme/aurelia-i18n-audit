@@ -7,6 +7,7 @@ const commandLineArgs = commandLineArgsImp.default || commandLineArgsImp;
 const optionDefinitions = [
   { name: 'src', type: String, multiple: true },
   { name: 'i18n', type: String, multiple: true },
+  { name: 'i18nMode', type: String },
   { name: 'remote-i18n', type: String, multiple: false },
   { name: 'lang', type: String, multiple: true },
   { name: 'namespace', type: String, multiple: true },
@@ -31,6 +32,7 @@ CLIReporter.cliAsync({
   local: options.i18n
     ? {
         i18nPaths: options.i18n,
+        mode: options.i18nMode,
       }
     : undefined,
   remote: options['remote-i18n']

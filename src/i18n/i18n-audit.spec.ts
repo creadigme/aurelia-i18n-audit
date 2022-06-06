@@ -27,7 +27,7 @@ describe('i18n-audit', () => {
   });
 
   describe('lint', () => {
-    describe('local', () => {
+    describe('local - Tree i18n/lang/ns', () => {
       it('html without i18n', async () => {
         const audit = new I18NAudit({
           srcPaths: [path.resolve('.\\samples\\wo_i18n\\src')],
@@ -173,6 +173,67 @@ describe('i18n-audit', () => {
         assert.strictEqual(details.languages.length, 1);
         assert.strictEqual(details.unused.length, 4);
         assert.strictEqual(Object.keys(details.missingKeys).length, 0);
+      });
+    });
+
+    describe('local - Root i18n/{{lang}}.fr', () => {
+      it('easy', async () => {
+        const audit = new I18NAudit(
+          new I18NAuditOptions({
+            srcPaths: [path.resolve('.\\samples\\case_04\\src')],
+            local: {
+              i18nPaths: [path.resolve('.\\samples\\case_04\\i18n')],
+              mode: 'root',
+            },
+            level: ELevel.EASY,
+          })
+        );
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, true);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
+      });
+
+      it('medium', async () => {
+        const audit = new I18NAudit({
+          srcPaths: [path.resolve('.\\samples\\case_04\\src')],
+          local: {
+            i18nPaths: [path.resolve('.\\samples\\case_04\\i18n')],
+            mode: 'root',
+          },
+          level: ELevel.MEDIUM,
+        });
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, false);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
+      });
+
+      it('hard', async () => {
+        const audit = new I18NAudit({
+          srcPaths: [path.resolve('.\\samples\\case_04\\src')],
+          local: {
+            i18nPaths: [path.resolve('.\\samples\\case_04\\i18n')],
+            mode: 'root',
+          },
+          level: ELevel.HARD,
+          i18nConfig: {
+            attributes: [],
+          },
+        });
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, false);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
       });
     });
 

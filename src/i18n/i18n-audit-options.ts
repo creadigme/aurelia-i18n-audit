@@ -2,7 +2,7 @@ import * as path from 'path';
 import { forwardSlash } from '../utils/forward-slash';
 import { ELevel } from './e-level';
 import { II18NConfig } from './i-i18n-config';
-import { ILocalOptions, IRemoteOptions } from './i18n-loader';
+import type { ILocalOptions, IRemoteOptions } from './loader/provider/i18n-loader-common';
 
 export class I18NAuditOptions {
   private _isInit?: boolean = false;

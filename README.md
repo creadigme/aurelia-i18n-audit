@@ -64,15 +64,31 @@ npm i @creadigme/au-i18n-audit --save-dev
 
 1. Check the directories of your project, example :
 
+i18n with a specific file per namespace (`--i18nMode tree`):
+
 ```shell
 
 ├── i18n
 │   ├── fr
-│   │   ├── NS1.{yml,json}
-│   │   └── NS2.{yml,json}
+│   │   ├── NS1.{yml,yaml,json}
+│   │   └── NS2.{yml,yaml,json}
 │   └── en
-│       ├── NS1.{yml,json}
-│       └── NS2.{yml,json}
+│       ├── NS1.{yml,yaml,json}
+│       └── NS2.{yml,yaml,json}
+└── src
+    ├── file1.{js,ts}
+    ├── file2.{js,ts}
+    └── file3.{js,ts}
+
+```
+
+i18n with a specific file for each language (`--i18nMode root`):
+
+```shell
+
+├── i18n
+│   ├── fr.{yml,yaml,json}
+│   └── en.{yml,yaml,json}
 └── src
     ├── file1.{js,ts}
     ├── file2.{js,ts}
@@ -82,9 +98,10 @@ npm i @creadigme/au-i18n-audit --save-dev
 
 2. Add i18n script
 
-```json
+```diff
 "scripts": {
-  "i18n" : "au-i18n-audit --src ./src/ --i18n ./i18n --reporter summary"
++  "i18n" : "au-i18n-audit --src ./src/ --i18n ./i18n --i18nMode tree --reporter summary"
+!  "i18n" : "au-i18n-audit --src ./src/ --i18n ./i18n --i18nMode root --reporter summary"
 }
 ```
 

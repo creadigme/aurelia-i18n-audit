@@ -7,7 +7,8 @@ import { II18NAuditResults } from './i-i18n-audit-results';
 import { ELevel } from './e-level';
 
 import { I18NSeeker } from './i18n-seeker';
-import { I18NLoader, I18NKeys } from './i18n-loader';
+import { I18NLoader } from './loader/i18n-loader';
+import type { I18NKeys } from './loader/provider/i18n-loader-common';
 
 /**
  * I18N Audit

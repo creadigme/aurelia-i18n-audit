@@ -153,7 +153,7 @@ export class I18NAudit {
 
   /** Browse sources */
   private async _browseSourcesAsync() {
-    const tsFiles = await fg(this._options.srcPaths);
+    const tsFiles = await ((fg as any).default || fg)(this._options.srcPaths);
     for (let i = 0; i < tsFiles.length; i++) {
       const filePath = tsFiles[i];
 

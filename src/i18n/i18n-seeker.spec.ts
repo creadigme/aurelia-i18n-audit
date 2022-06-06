@@ -349,7 +349,6 @@ describe('i18n-seeker', () => {
             nsSeparator: ':',
             nestedSeparator: '.',
             defaultNS: 'EASY',
-            attributes: ['t'],
             autoDiscovery: true,
           },
           ['EASY']
@@ -399,7 +398,7 @@ describe('i18n-seeker', () => {
             nestedSeparator: '.',
             defaultNS: undefined,
             attributes: ['t'],
-            customMatchers: [/['"](EASY\:[\w\-:\.]{3,})['"]/gi, /['"](EASY\.[\w\-:\.]{3,})['"]/gi, /['"](KEY\.[\w\-:\.]{3,})['"]/gi],
+            customMatchers: [/['"](EASY:[\w\-:.]{3,})['"]/gi, /['"](EASY\.[\w\-:.]{3,})['"]/gi, /['"](KEY\.[\w\-:.]{3,})['"]/gi],
           },
           ['translation']
         );

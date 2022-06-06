@@ -95,14 +95,14 @@ export class XLSReporter implements IReporter {
 
       table.commit();
 
-      const lastRowNum = sheet.lastRow.number;
+      const lastRowNum = sheet.lastRow?.number || 0;
       const lastTableRowNum = lastRowNum;
 
-      //Loop through all table's row
+      // Loop through all table's row
       for (let i = 0; i <= lastTableRowNum; i++) {
         const row = sheet.getRow(i);
 
-        //Now loop through every row's cell and finally set alignment
+        // Now loop through every row's cell and finally set alignment
         row.eachCell({ includeEmpty: true }, (cell, num) => {
           cell.alignment = { vertical: 'top', horizontal: 'left', wrapText: num > 3 };
         });

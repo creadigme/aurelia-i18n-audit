@@ -136,7 +136,7 @@ export class I18NSeeker {
     }
 
     /** Auto Discovery */
-    if (this._i18nRegex.discovery?.length) {
+    if (this._i18nRegex.discovery.length) {
       this._i18nRegex.discovery.forEach(regex => {
         this._searchI18nWithRegex(content, ext, regex, callback);
       });
@@ -173,7 +173,7 @@ export class I18NSeeker {
           if (goodRegex) {
             goodRegex.regex.lastIndex = -1;
             const nsKeySub = goodRegex.regex.exec(f);
-            if (nsKeySub?.length) {
+            if (nsKeySub.length) {
               callback(goodRegex.parse(nsKeySub), linePos, colPos);
             }
           }

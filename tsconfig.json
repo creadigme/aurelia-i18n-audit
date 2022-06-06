@@ -1,32 +1,33 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "sourceMap": true,
-    "target": "es2017",
-    "module": "commonjs",
-    "declaration": true,
-    "noImplicitAny": false,
-    "removeComments": false,
-    "stripInternal": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "noUnusedLocals" : true,
-    "lib": ["es2017", "esnext"],
-    "baseUrl": "./src",
+    "target": "es2017",
+		"module": "commonjs",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "newLine": "LF",
     "outDir": "./build",
-    "newLine": "LF"
+    "alwaysStrict": true
   },
   "exclude": [
-    "./build",
     "./node_modules",
-    "./samples"
+    "./build"
   ],
-  "filesGlob": [
-    "./src/**/*.ts"
+  "include": [
+    "test",
+    "src"
   ],
   "atom": {
     "rewriteTsconfig": false
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
   }
 }

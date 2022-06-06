@@ -1,13 +1,14 @@
 import * as yaml from 'js-yaml';
-import { MiniInterpolate } from '../utils/mini-interpolate';
-import fetch from 'node-fetch';
-import * as flatten from 'flat';
+import { interpolate } from '../utils/interpolate';
+import flattenImp from 'flat';
 import * as fg from 'fast-glob';
 import * as fs from 'fs-extra';
 import * as path from 'path';
-import { PathUtils } from './../utils/path-utils';
+import { forwardSlash } from '../utils/forward-slash';
 import { II18NConfig } from './i-i18n-config';
+import * as fetch from 'node-fetch';
 
+const flatten = flattenImp.default || flattenImp;
 export interface IRemoteOptions {
   /** 'http://localhost:3333/api/i18n/{{ns}}/{{lang}}' */
   url: string;
@@ -34,9 +35,7 @@ export class I18NLoader {
     // Private
   }
 
-  private static _initData(
-    i18nConfig: II18NConfig
-  ): {
+  private static _initData(i18nConfig: II18NConfig): {
     languages: string[];
     keys: I18NKeys;
   } {
@@ -90,23 +89,22 @@ export class I18NLoader {
     }
   ): Promise<void> {
     const options = {
-      paths: localOptions.i18nPaths?.map(f => PathUtils.forwardSlash(path.join(f, '/**/*.{json,yml}'))) || [],
+      paths: localOptions.i18nPaths?.map(f => forwardSlash(path.join(f, '/**/*.{json,yml}'))) || [],
       nsResolver: localOptions.i18nNSResolver || I18NLoader._defaultI18nNSResolver,
     };
 
-    const jsonFiles = await fg(options.paths);
+    const jsonFiles = await ((fg as any).default || fg)(options.paths);
     const resolver = options.nsResolver;
 
     for (let i = 0; i < jsonFiles.length; i++) {
       const jsonFilePath = jsonFiles[i];
-      // We flat the nested keys
-      const transData: any = flatten(
-        yaml.safeLoad(
-          await fs.readFile(jsonFilePath, {
-            encoding: 'utf8',
-          })
-        )
+      const ymlData = yaml.load(
+        await fs.readFile(jsonFilePath, {
+          encoding: 'utf8',
+        })
       );
+      // We flat the nested keys
+      const transData: any = ymlData ? flatten(ymlData) : {};
 
       const { ns, lang } = resolver(jsonFilePath);
 
@@ -138,7 +136,7 @@ export class I18NLoader {
         urlsInfo.push({
           ns,
           lang,
-          url: MiniInterpolate.interpolate(urlPattern, {
+          url: interpolate(urlPattern, {
             ns,
             lang,
           }),
@@ -158,7 +156,8 @@ export class I18NLoader {
 
       if (jsonData) {
         // Nested keys are flatten
-        const transData: any = flatten(yaml.safeLoad(jsonData));
+        const ymlData = yaml.load(jsonData);
+        const transData: any = ymlData ? flatten(yaml.load(jsonData)) : {};
 
         Object.keys(transData).forEach(key => {
           I18NLoader._ensureTrans(data.keys, ns, key, lang, transData[key]);

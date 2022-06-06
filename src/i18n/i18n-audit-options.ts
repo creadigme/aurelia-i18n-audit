@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { PathUtils } from '../utils/path-utils';
+import { forwardSlash } from '../utils/forward-slash';
 import { ELevel } from './e-level';
 import { II18NConfig } from './i-i18n-config';
 import { ILocalOptions, IRemoteOptions } from './i18n-loader';
@@ -25,29 +25,27 @@ export class I18NAuditOptions {
   /** Audit level */
   public level?: ELevel;
 
-  constructor(options?: I18NAuditOptions) {
-    if (options) {
-      if (options._isInit) {
-        Object.assign(this, options);
-      } else {
-        this.srcPaths = options.srcPaths?.map(f => PathUtils.forwardSlash(path.join(f, `/**/!(*.spec).{ts,js,html}`))) || [];
-        this.ignoreKeys = options.ignoreKeys;
-        this.level = options.level || ELevel.MEDIUM;
-        this.local = options.local;
-        this.remote = options.remote;
-        this.i18nConfig = options.i18nConfig || {};
+  constructor(options: I18NAuditOptions) {
+    if (options._isInit) {
+      Object.assign(this, options);
+    } else {
+      this.srcPaths = options.srcPaths?.map(f => forwardSlash(path.join(f, `/**/!(*.spec).{ts,js,html}`))) || [];
+      this.ignoreKeys = options.ignoreKeys;
+      this.level = options.level || ELevel.MEDIUM;
+      this.local = options.local;
+      this.remote = options.remote;
+      this.i18nConfig = options.i18nConfig || {};
 
-        if (!this.i18nConfig.nsSeparator) {
-          this.i18nConfig.nsSeparator = ':';
-        }
-        if (!this.i18nConfig.nestedSeparator) {
-          this.i18nConfig.nestedSeparator = '.';
-        }
-        if (!this.i18nConfig.attributes?.length) {
-          this.i18nConfig.attributes = ['t'];
-        }
-        this._isInit = true;
+      if (!this.i18nConfig.nsSeparator) {
+        this.i18nConfig.nsSeparator = ':';
       }
+      if (!this.i18nConfig.nestedSeparator) {
+        this.i18nConfig.nestedSeparator = '.';
+      }
+      if (!this.i18nConfig.attributes?.length) {
+        this.i18nConfig.attributes = ['t'];
+      }
+      this._isInit = true;
     }
   }
 }

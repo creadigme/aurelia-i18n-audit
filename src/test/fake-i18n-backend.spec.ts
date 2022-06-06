@@ -1,4 +1,4 @@
-import * as express from 'express';
+import express from 'express';
 import { Server } from 'http';
 
 export class FakeI18NBackend {
@@ -29,6 +29,9 @@ export class FakeI18NBackend {
         res.json({});
       }
     });
+    this._app.get('/i18n_bad/:ns/:lang', function (req, res) {
+      res.send('');
+    });
   }
 
   public start(port: number = 8085): Promise<boolean> {
@@ -51,3 +54,7 @@ export class FakeI18NBackend {
     }
   }
 }
+
+describe('fake-i18n-backend', () => {
+  //
+});

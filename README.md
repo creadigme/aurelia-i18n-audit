@@ -1,11 +1,13 @@
 [![npm version](https://img.shields.io/npm/v/@creadigme/au-i18n-audit.svg)](https://www.npmjs.com/package/@creadigme/au-i18n-audit)
-[![codecov](https://codecov.io/gh/creadigme/au-i18n-audit/branch/master/graph/badge.svg?token=GXFW0MRHHJ)](https://github.com/creadigme/au-i18n-audit)
 [![Build Status](https://github.com/creadigme/au-i18n-audit/workflows/Node.js%20CI/badge.svg)](https://github.com/creadigme/au-i18n-audit/actions)
+[![CodeQL](https://github.com/creadigme/au-i18n-audit/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/creadigme/aurelia-docgen/actions/workflows/codeql-analysis.yml)
+[![codecov](https://codecov.io/gh/creadigme/au-i18n-audit/branch/master/graph/badge.svg?token=GXFW0MRHHJ)](https://github.com/creadigme/au-i18n-audit)
+[![License Badge](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 <br />
 
 # Aurelia I18N Audit
 
-Aurelia I18N Audit bring more control over your translations. With the integrate CLI you can check if all your translations keys is used, more importantly, you will be able to find the ones that are not defined.
+Aurelia I18N Audit brings more control over your translations. With the integrate CLI you can check if all your translations keys is used, more importantly, you will be able to find the ones that are not defined.
 
 This tool is intended to be used with projects based on [Aurelia framework](https://aurelia.io/) + [i18next](https://www.i18next.com/). It could also work with projects using only  [i18next](https://www.i18next.com/).
 
@@ -13,13 +15,21 @@ This tool is intended to be used with projects based on [Aurelia framework](http
 
 <a href="https://www.i18next.com/" target="_blank"><img src="https://gblobscdn.gitbook.com/spaces%2F-L9iS6Wm2hynS5H9Gj7j%2Favatar.png?alt=media" alt="i18next logo" height="100"/></a>
 
-## Installation
+## 📝 License
+
+[The MIT License](LICENSE) - Copyright © 2022 [Creadigme](https://www.creadigme.net).
+
+Do not hesitate to [contact us](https://creadigme.net/contact/).
+
+## 💾 Installation
 
 ```shell
+yarn add @creadigme/au-i18n-audit -D
+# or
 npm i @creadigme/au-i18n-audit --save-dev
 ```
 
-## CLI parameters
+## ⚙ CLI parameters
   
 | Parameter | Description | Sample | Mandatory | Multiple
 |---|---|---|---|---|
@@ -81,6 +91,8 @@ npm i @creadigme/au-i18n-audit --save-dev
 3. Launch i18n script
 
 ```shell
+yarn i18n
+# or
 npm run i18n
 # [i18n] @creadigme/au-i18n-audit v0.8.0.
 # [i18n] 2 languages detected (en, fr).
@@ -126,7 +138,7 @@ async () => {
 }();
 ```
 
-## Reporters
+## 📝 Reporters
 
 ### Summary
 

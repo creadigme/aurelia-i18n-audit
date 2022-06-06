@@ -1,6 +1,8 @@
 import * as c from 'ansi-colors';
-import * as commandLineArgs from 'command-line-args';
+import commandLineArgsImp from 'command-line-args';
 import { CLIReporter } from './i18n/cli-reporter';
+
+const commandLineArgs = commandLineArgsImp.default || commandLineArgsImp;
 
 const optionDefinitions = [
   { name: 'src', type: String, multiple: true },

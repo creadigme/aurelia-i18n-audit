@@ -5,4 +5,8 @@ coverage/
 .nyc_output/
 i18n_report.csv
 i18n_report.xlsx
+~i18n_report.csv
+~$i18n_report.csv
+~i18n_report.xlsx
+~$i18n_report.xlsx
 .vscode/

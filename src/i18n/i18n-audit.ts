@@ -28,10 +28,12 @@ export class I18NAudit {
 
   private readonly _options: I18NAuditOptions;
   private readonly _i18nSeeker: I18NSeeker;
+  private readonly _i18nLoader: I18NLoader;
 
   constructor(options: I18NAuditOptions) {
     this._options = new I18NAuditOptions(options);
     this._i18nSeeker = new I18NSeeker();
+    this._i18nLoader = new I18NLoader();
   }
 
   /** Load defined i18n keys */
@@ -44,7 +46,7 @@ export class I18NAudit {
       keys: {},
     };
 
-    data = await I18NLoader.getI18nAsync(this._options.i18nConfig, {
+    data = await this._i18nLoader.getI18nAsync(this._options.i18nConfig, {
       local: this._options.local,
       remote: this._options.remote,
     });

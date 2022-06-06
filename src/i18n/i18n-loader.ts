@@ -31,11 +31,7 @@ export interface I18NKeys {
 }
 
 export class I18NLoader {
-  private constructor() {
-    // Private
-  }
-
-  private static _initData(i18nConfig: II18NConfig): {
+  private _initData(i18nConfig: II18NConfig): {
     languages: string[];
     keys: I18NKeys;
   } {
@@ -59,21 +55,21 @@ export class I18NLoader {
   /**
    * Load translations from a local directory or/and remote backend
    */
-  public static async getI18nAsync(
+  public async getI18nAsync(
     i18nConfig: II18NConfig,
     options: {
       local?: ILocalOptions;
       remote?: IRemoteOptions;
     }
   ) {
-    const data = I18NLoader._initData(i18nConfig);
+    const data = this._initData(i18nConfig);
 
     if (options.local) {
-      await I18NLoader._fillLocalI18nAsync(options.local, data);
+      await this._fillLocalI18nAsync(options.local, data);
     }
 
     if (options.remote) {
-      await I18NLoader._fillRemoteI18nAsync(i18nConfig, options.remote, data);
+      await this._fillRemoteI18nAsync(i18nConfig, options.remote, data);
     }
 
     return data;
@@ -81,7 +77,7 @@ export class I18NLoader {
   /**
    * Load translations from a local directory
    */
-  private static async _fillLocalI18nAsync(
+  private async _fillLocalI18nAsync(
     localOptions: ILocalOptions,
     data: {
       languages: string[];
@@ -90,7 +86,7 @@ export class I18NLoader {
   ): Promise<void> {
     const options = {
       paths: localOptions.i18nPaths?.map(f => forwardSlash(path.join(f, '/**/*.{json,yml}'))) || [],
-      nsResolver: localOptions.i18nNSResolver || I18NLoader._defaultI18nNSResolver,
+      nsResolver: localOptions.i18nNSResolver || this._defaultI18nNSResolver,
     };
 
     const jsonFiles = await ((fg as any).default || fg)(options.paths);
@@ -109,7 +105,7 @@ export class I18NLoader {
       const { ns, lang } = resolver(jsonFilePath);
 
       Object.keys(transData).forEach(key => {
-        I18NLoader._ensureTrans(data.keys, ns, key, lang, transData[key]);
+        this._ensureTrans(data.keys, ns, key, lang, transData[key]);
       });
 
       if (data.languages.indexOf(lang) === -1) {
@@ -119,7 +115,7 @@ export class I18NLoader {
   }
 
   /** Loads translations from a remote backend */
-  private static async _fillRemoteI18nAsync(
+  private async _fillRemoteI18nAsync(
     i18nConfig: II18NConfig,
     options: IRemoteOptions,
     data: {
@@ -150,26 +146,24 @@ export class I18NLoader {
         if (res.status >= 200 && res.status < 400) {
           return res.text();
         } else {
-          throw new Error(`Invalid HTTP response: ${res.statusText || res.status} (${url}).`);
+          throw new Error(`Invalid HTTP response: ${res.statusText} (${url}).`);
         }
       });
 
-      if (jsonData) {
-        // Nested keys are flatten
-        const ymlData = yaml.load(jsonData);
-        const transData: any = ymlData ? flatten(yaml.load(jsonData)) : {};
+      // Nested keys are flatten
+      const ymlData = yaml.load(jsonData);
+      const transData: any = ymlData ? flatten(yaml.load(jsonData)) : {};
 
-        Object.keys(transData).forEach(key => {
-          I18NLoader._ensureTrans(data.keys, ns, key, lang, transData[key]);
-        });
-      }
+      Object.keys(transData).forEach(key => {
+        this._ensureTrans(data.keys, ns, key, lang, transData[key]);
+      });
     }
   }
 
   /**
    * Add new ns/key or/and add new language
    */
-  private static _ensureTrans(definedKeys: I18NKeys, ns: string, key: string, language: string, value: string) {
+  private _ensureTrans(definedKeys: I18NKeys, ns: string, key: string, language: string, value: string) {
     if (!definedKeys[ns]) {
       definedKeys[ns] = {};
     }
@@ -186,7 +180,7 @@ export class I18NLoader {
   /**
    * By default, one directory per language and one file per namespace
    */
-  private static _defaultI18nNSResolver(filePath: string) {
+  private _defaultI18nNSResolver(filePath: string) {
     return {
       ns: path.basename(filePath, path.extname(filePath)),
       lang: path.basename(path.dirname(filePath)),

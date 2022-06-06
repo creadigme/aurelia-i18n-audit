@@ -137,6 +137,26 @@ describe('i18n-audit', () => {
         assert.strictEqual(Object.keys(details.missingKeys).length, 3);
       });
 
+      it('hard - bis', async () => {
+        const audit = new I18NAudit({
+          srcPaths: [path.resolve('.\\samples\\case_03\\src')],
+          local: {
+            i18nPaths: [path.resolve('.\\samples\\case_03\\i18n')],
+          },
+          level: ELevel.HARD,
+          i18nConfig: {
+            attributes: [],
+          },
+        });
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, false);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 0);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 6);
+      });
+
       it('ignore keys', async () => {
         const audit = new I18NAudit({
           srcPaths: [path.resolve('.\\samples\\case_01\\src')],

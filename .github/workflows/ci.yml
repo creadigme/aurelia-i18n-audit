@@ -37,11 +37,6 @@ jobs:
         CI: true
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: rm -rf node_modules && yarn install --frozen-lockfile
-    - name: Install examples dependencies
-      env:
-        CI: true
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: cd ./examples/au2-basic && rm -rf node_modules && yarn install --frozen-lockfile && cd ../../
     - name: lint
       run: yarn run lint
     - name: test and coverage

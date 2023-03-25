@@ -1,9 +1,9 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import * as fs from 'fs-extra';
 import * as fg from 'fast-glob';
 import { I18NAuditOptions } from './i18n-audit-options';
 
-import { II18NAuditResults } from './i-i18n-audit-results';
+import type { II18NAuditResults } from './i-i18n-audit-results';
 import { ELevel } from './e-level';
 
 import { I18NSeeker } from './i18n-seeker';

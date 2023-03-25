@@ -3,9 +3,11 @@
   "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "declaration": true,
+    "declarationMap": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "target": "es2017",
+    "target": "es2020",
 		"module": "commonjs",
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -25,9 +27,4 @@
   "atom": {
     "rewriteTsconfig": false
   },
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  }
 }

@@ -1,5 +1,4 @@
 import * as yaml from 'js-yaml';
-import * as fetch from 'node-fetch';
 import flattenImp from 'flat';
 import { interpolate } from '../../../utils/interpolate';
 import type { II18NConfig } from '../../i-i18n-config';

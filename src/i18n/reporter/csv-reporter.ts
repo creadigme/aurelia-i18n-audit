@@ -1,6 +1,6 @@
 import * as fs from 'fs-extra';
 import * as c from 'ansi-colors';
-import * as path from 'path';
+import * as path from 'node:path';
 import { II18NAuditResults } from '../i-i18n-audit-results';
 import { IReporter } from './i-reporter';
 import { I18NAudit } from '../i18n-audit';

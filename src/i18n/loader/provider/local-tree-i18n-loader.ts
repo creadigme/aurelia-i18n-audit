@@ -1,7 +1,7 @@
 import * as yaml from 'js-yaml';
 import fg from 'fast-glob';
 import * as fs from 'fs-extra';
-import * as path from 'path';
+import * as path from 'node:path';
 import flattenImp from 'flat';
 import { forwardSlash } from '../../../utils/forward-slash';
 import { ensureTrans, type I18NKeys, type ILocalOptions } from './i18n-loader-common';

@@ -1,8 +1,7 @@
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const { BundleDeclarationsWebpackPlugin } = require('bundle-declarations-webpack-plugin');
 const webpack = require('webpack');
 
 /**
@@ -23,8 +22,8 @@ const webpack = require('webpack');
 module.exports = function(
   options
 ) {
-  const indexPath = path.join(options.directory, './src/index.ts');
-  const cliPath = path.join(options.directory, './src/cli.ts');
+  const indexPath = path.join(options.directory, './build/index.js');
+  const cliPath = path.join(options.directory, './build/cli.js');
   const entry = { [options.name]: indexPath };
   const outputDir = path.join(options.directory, 'dist/');
   const outputDirSubDir = options.subdir ? path.join(outputDir, options.subdir) : outputDir;
@@ -57,22 +56,6 @@ module.exports = function(
       externals: options.externals,
       plugins: [
         ... options.plugins ?? [],
-        new BundleDeclarationsWebpackPlugin({
-            entry: {
-              filePath: indexPath,
-              libraries: {
-                inlinedLibraries: [],
-                allowedTypesLibraries: [],
-              },
-              output: {
-                exportReferencedTypes: false,
-              }
-            },
-            outFile: 'bundle.d.ts',
-            compilationOptions: {
-              followSymlinks: false,
-            },
-        }),
         new Dotenv({
           path: `./.env${production ? '' : '.' + (process.env.NODE_ENV || 'development')}`,
         }),

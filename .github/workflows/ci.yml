@@ -19,10 +19,10 @@ jobs:
     #     node-version: [18.x, 17.x]
     steps:
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     # - name: Use Node.js ${{ matrix.node-version }}
     - name: Use Node.js 18.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 18.x
         registry-url: 'https://npm.pkg.github.com'
@@ -60,7 +60,7 @@ jobs:
       if: github.event_name == 'release'
       env:
         CI: true
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
         NPM_PUBLISH_PUBLIC: '1'
         NPM_PUSH_REGISTRY: https://registry.npmjs.org/
       run: node ./.build/build-flow.js publish
@@ -75,10 +75,10 @@ jobs:
     #     node-version: [18.x, 17.x]
     steps:
     - name: checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     # - name: Use Node.js ${{ matrix.node-version }}
     - name: Use Node.js 18.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 18.x
         registry-url: 'https://npm.pkg.github.com'
@@ -91,7 +91,7 @@ jobs:
     - name: Install dependencies
       env:
         CI: true
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN  }}
       run: rm -rf node_modules && yarn install --frozen-lockfile
     - name: lint
       run: yarn run lint

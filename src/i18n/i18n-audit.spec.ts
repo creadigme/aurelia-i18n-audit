@@ -237,6 +237,83 @@ describe('i18n-audit', () => {
       });
     });
 
+    describe('Subkeys', () => {
+      it('without srcPaths', async () => {
+        const audit = new I18NAudit(
+          new I18NAuditOptions({
+            srcPaths: undefined,
+            local: {
+              i18nPaths: [path.resolve('.\\samples\\case_05\\i18n')],
+            },
+            level: ELevel.EASY,
+          })
+        );
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, true);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 7);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 0);
+      });
+
+      it('easy', async () => {
+        const audit = new I18NAudit(
+          new I18NAuditOptions({
+            srcPaths: [path.resolve('.\\samples\\case_05\\src')],
+            local: {
+              i18nPaths: [path.resolve('.\\samples\\case_05\\i18n')],
+            },
+            level: ELevel.EASY,
+          })
+        );
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, true);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
+      });
+
+      it('medium', async () => {
+        const audit = new I18NAudit({
+          srcPaths: [path.resolve('.\\samples\\case_05\\src')],
+          local: {
+            i18nPaths: [path.resolve('.\\samples\\case_05\\i18n')],
+          },
+          level: ELevel.MEDIUM,
+        });
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, false);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
+      });
+
+      it('hard', async () => {
+        const audit = new I18NAudit({
+          srcPaths: [path.resolve('.\\samples\\case_05\\src')],
+          local: {
+            i18nPaths: [path.resolve('.\\samples\\case_05\\i18n')],
+          },
+          level: ELevel.HARD,
+          i18nConfig: {
+            attributes: [],
+          },
+        });
+
+        await audit.initializeAsync();
+        const details = await audit.validateAsync();
+        assert.strictEqual(details.isOk, false);
+        assert.strictEqual(details.languages.length, 1);
+        assert.strictEqual(details.unused.length, 1);
+        assert.strictEqual(Object.keys(details.missingKeys).length, 3);
+      });
+    });
+
     describe('remote', () => {
       const fakeI18nBackend = new FakeI18NBackend();
 

@@ -169,7 +169,7 @@ export class I18NAudit {
       const defaultNS = this._options.i18nConfig.defaultNS;
 
       this._i18nSeeker.searchI18NKeys(content, ext, (rr, linePos, colPos) => {
-        this._createOrUpdateInCodeKeys(rr.ns || defaultNS, rr.subkey ? `${rr.key}.${rr.subkey}` : rr.key, filePath, linePos, colPos);
+        this._createOrUpdateInCodeKeys(rr.ns || defaultNS, rr.subkeys?.length ? `${rr.key}.${rr.subkeys.join('.')}` : rr.key, filePath, linePos, colPos);
       });
     }
   }

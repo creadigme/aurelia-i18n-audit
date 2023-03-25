@@ -1,4 +1,4 @@
-import * as path from 'path';
+import * as path from 'node:path';
 import { forwardSlash } from '../utils/forward-slash';
 import { ELevel } from './e-level';
 import { II18NConfig } from './i-i18n-config';

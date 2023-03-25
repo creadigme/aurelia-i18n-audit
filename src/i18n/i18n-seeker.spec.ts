@@ -1,5 +1,5 @@
 import { I18NSeeker } from './i18n-seeker';
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 
 describe('i18n-seeker', () => {
   describe('default separators', () => {

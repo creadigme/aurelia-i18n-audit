@@ -39,7 +39,7 @@ export class CLIReporter {
 
         if (options.reporters) {
           for (let i = 0; i < options.reporters.length; i++) {
-            if (options.reporters[i] in CLIReporter._REPORTERS) {
+            if (CLIReporter._REPORTERS.hasOwnProperty(options.reporters[i])) {
               await CLIReporter._REPORTERS[options.reporters[i]](audit).reportAsync(details, options);
             } else {
               throw new Error(`Invalid reporter: ${options.reporters[i]}.`);

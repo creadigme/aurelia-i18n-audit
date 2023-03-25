@@ -1,7 +1,7 @@
 import { I18NAudit } from './i18n-audit';
-import * as path from 'path';
+import * as path from 'node:path';
 import { FakeI18NBackend } from '../test/fake-i18n-backend.spec';
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 import { ELevel } from './e-level';
 import { I18NAuditOptions } from './i18n-audit-options';
 

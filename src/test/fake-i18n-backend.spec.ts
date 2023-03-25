@@ -1,5 +1,5 @@
 import express from 'express';
-import { Server } from 'http';
+import type { Server } from 'node:http';
 
 export class FakeI18NBackend {
   private readonly _app: express.Express;

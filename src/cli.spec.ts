@@ -1,8 +1,8 @@
-import * as assert from 'assert';
-import * as os from 'os';
-import * as path from 'path';
-import * as crypto from 'crypto';
-import { exec } from 'child_process';
+import * as assert from 'node:assert';
+import * as os from 'node:os';
+import * as path from 'node:path';
+import * as crypto from 'node:crypto';
+import { exec } from 'node:child_process';
 import * as fs from 'fs-extra';
 import * as ExcelJS from 'exceljs';
 
@@ -302,7 +302,7 @@ type TestCLIResult = {
 function testCLIAsync(...args: string[]): Promise<TestCLIResult> {
   return new Promise<TestCLIResult>(resolve => {
     const res = exec(
-      `node ./src/cli.process ${args.join(' ')}`,
+      `node ./build/cli ${args.join(' ')}`,
       {
         cwd: process.cwd(),
       },

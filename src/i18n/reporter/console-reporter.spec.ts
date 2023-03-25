@@ -1,4 +1,4 @@
-import * as assert from 'assert';
+import * as assert from 'node:assert';
 import { ConsoleReporter } from './console-reporter';
 
 describe('console-reporter', () => {

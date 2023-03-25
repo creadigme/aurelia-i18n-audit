@@ -7,7 +7,7 @@
 
 # Aurelia I18N Audit
 
-Aurelia I18N Audit brings more control over your translations. With the integrate CLI you can check if all your translations keys is used, more importantly, you will be able to find the ones that are not defined.
+Aurelia I18N Audit brings more control over your translations. With the integrated CLI you can check if all your translations keys are used, more importantly, you will be able to find the ones that are not defined.
 
 This tool is intended to be used with projects based on [Aurelia framework](https://aurelia.io/) + [i18next](https://www.i18next.com/). It could also work with projects using only  [i18next](https://www.i18next.com/).
 

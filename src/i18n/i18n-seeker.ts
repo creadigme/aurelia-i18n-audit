@@ -3,7 +3,7 @@ import { II18NConfig } from './i-i18n-config';
 export interface IRegexTagResult {
   ns?: string;
   key: string;
-  subkey?: string;
+  subkeys?: string[];
 }
 
 /**
@@ -44,46 +44,37 @@ export class I18NSeeker {
 
     this._i18nRegexTag = [
       {
-        /** [xxx]ns:key.nested or ns:key.nested */
-        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${ns}([\\w\\-]{1,})${key}([\\w\\-]{1,})`, 'i'),
+        /** [xxx]ns:key.nested or ns:key.nested (get all the subkeys) */
+        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]+)${ns}([\\w\\-]+(?:${key}[\\w\\-]+)*)`, 'i'),
         parse: result => {
+          const keys = result.length > 3 ? result[3].split(key) : [];
           return {
             ns: result[2],
-            key: result[3],
-            subkey: result[4],
+            key: keys[0],
+            subkeys: keys.slice(1),
           };
         },
       },
       {
-        /** [xxx]ns:key or ns:key */
-        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${ns}([\\w\\-]{1,})`, 'i'),
+        /** [xxx]key.nested or key.nested (get all the subkeys) */
+        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]+)${key}([\\w\\-]+(?:${key}[\\w\\-]+)*)`, 'i'),
         parse: result => {
+          const keys = result.length > 3 ? result[3].split(key) : [];
           return {
-            ns: result[2],
-            key: result[3],
-            subkey: null,
+            ns: null,
+            key: result[2],
+            subkeys: keys,
           };
         },
       },
       {
-        /** [xxx]key.nested or key.nested */
-        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})${key}([\\w\\-]{1,})`, 'i'),
+        /** [xxx]key key */
+        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]+)`, 'i'),
         parse: result => {
           return {
             ns: null,
             key: result[2],
-            subkey: result[3],
-          };
-        },
-      },
-      {
-        /** [xxx]key or key */
-        regex: new RegExp(`(\\[[\\w\\-]{0,}\\])?([\\w\\-]{1,})`, 'i'),
-        parse: result => {
-          return {
-            ns: null,
-            key: result[2],
-            subkey: null,
+            subkeys: [],
           };
         },
       },

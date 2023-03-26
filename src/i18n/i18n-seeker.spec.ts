@@ -491,7 +491,7 @@ function getI18NKeys(seeker: I18NSeeker, code: string, ext: string) {
   const keys: string[] = [];
 
   seeker.searchI18NKeys(code, ext, (res /*, linePos, colPos*/) => {
-    keys.push(`${res.ns ? res.ns + ':' : ''}${res.key || '_'}${res.subkey ? '.' + res.subkey : ''}`);
+    keys.push(`${res.ns ? res.ns + ':' : ''}${res.key || '_'}${res.subkeys?.length ? '.' + res.subkeys.join('.') : ''}`);
   });
   return keys.sort();
 }

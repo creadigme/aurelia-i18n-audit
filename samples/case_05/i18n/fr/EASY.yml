@@ -1,0 +1,11 @@
+STOP: Stop
+START: Start
+PAUSE: Pause
+NOT_USED: Another One
+CAT:
+  SUBCAT_1:
+    KEY: Bonjour
+  SUBCAT_2:
+    ANOTHER: Key
+ONE_LEVEL:
+  OK: Ok

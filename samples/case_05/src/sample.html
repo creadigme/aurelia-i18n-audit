@@ -1,0 +1,23 @@
+<template>
+
+  <div class="something else" title.one-time="'EASY:PAUSE' & t">?</div>
+        <div class="something else" title.bind="'EASY:START' & t">?</div>
+        <div class="something else" title.one-time="'EASY:START' & t">?</div>
+          <div class="something else" title.bind="'EASY:STOP' & t">?</div>
+
+          <div class="something else">${"EASY:KEY" & t} : </div>
+          <div class="something else">${'EASY:KEY2' | t} : </div>
+
+          <div>${"EASY:CAT.SUBCAT_1.KEY" & t} : </div>
+          <div>${'EASY:CAT.SUBCAT_2.ANOTHER' | t} : </div>
+          <div title.bind="'EASY:ONE_LEVEL.OK' & t">?</div>
+
+          <!-- ignore this -->
+          <div class="something else">${'EASY:KEY3'} : </div>
+
+    
+          <div class="something else" t="EASY:KEY"></div>
+          <div class="something else" t="EASY:KEY2"></div>
+          <!-- ignore this -->
+          <div class="something else" tt="EASY:KEY3"></div>
+</template>

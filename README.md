@@ -43,6 +43,7 @@ npm i @creadigme/au-i18n-audit --save-dev
 | --namespace | Namespace | `cart` | false | true
 | --namespace-sep | NS separator (default `:`) | `$` | false | false
 | --nested-sep | Sub key separator (default `.`) | `~` | false | false
+| --default-ns | Default namespace (default `translation` or the first namespace)  | `easy` | false | false
 | --ignore-keys | Provide the ability to ignore specific keys | `^(shop\|other)\\.` | false | false
 | --discovery | Provide the ability to discover i18n keys everywhere (you must provide `--namespace` & `--lang`) | | false | false
 

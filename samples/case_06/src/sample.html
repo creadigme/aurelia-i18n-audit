@@ -1,0 +1,18 @@
+<template>
+
+  <div class="something else" title.one-time="'PAUSE' & t">?</div>
+        <div class="something else" title.bind="'START' & t">?</div>
+        <div class="something else" title.one-time="'START' & t">?</div>
+          <div class="something else" title.bind="'STOP' & t">?</div>
+
+          <div class="something else">${"KEY" & t} : </div>
+          <div class="something else">${'KEY2' | t} : </div>
+          <!-- ignore this -->
+          <div class="something else">${'KEY3'} : </div>
+
+    
+          <div class="something else" t="KEY"></div>
+          <div class="something else" t="KEY2"></div>
+          <!-- ignore this -->
+          <div class="something else" tt="KEY3"></div>
+</template>

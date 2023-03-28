@@ -52,6 +52,15 @@ describe('cli', () => {
       );
     });
 
+    it('reporter summary, default ns', async () => {
+      const res = await testCLIAsync('--src', './samples/case_06/src/', '--i18n', './samples/case_06/i18n', '--default-ns', 'EASY', '--reporter', 'summary');
+      assert.strictEqual(res.exitCode, 1);
+      assert.strictEqual(
+        res.stdout,
+        `\u001b[1m\u001b[4m\u001b[94m[i18n] @creadigme/au-i18n-audit v${version}.\u001b[39m\u001b[24m\u001b[22m\n\u001b[32m[i18n] 1 languages detected (fr).\u001b[39m\n\u001b[1m\u001b[33m[i18n] 5 keys seems not to be used (maybe server side?).\u001b[39m\u001b[22m\n\u001b[1m\u001b[31m[i18n] 3 keys are not defined.\u001b[39m\u001b[22m\n`
+      );
+    });
+
     it('reporter text', async () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--reporter', 'text');
       assert.strictEqual(res.exitCode, 1);

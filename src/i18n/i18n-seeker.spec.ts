@@ -280,7 +280,7 @@ describe('i18n-seeker', () => {
           seeker,
           `
           public something() {
-            return [this.i18n.tr('EASY:KEY.START'), this.i18n.tr("EASY:KEY.STOP"), this.something.ab('EASY:KEY3')];
+            return [this.i18n.tr('EASY:KEY.START'), this.i18n.t("EASY:KEY.STOP"), this.something.ab('EASY:KEY3')];
           }`,
           '.ts'
         );

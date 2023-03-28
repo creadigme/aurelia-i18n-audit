@@ -10,7 +10,7 @@ export class Sample3 {
   /**
    */
   public summoner() {
-    return this.i18n.tr('EASY:STOP');
+    return this.i18n.t('EASY:STOP');
   }
 
   /**

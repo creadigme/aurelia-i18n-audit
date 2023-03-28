@@ -92,9 +92,9 @@ export class I18NSeeker {
         /** Nested I18N $t(XXX.YY) **/
         new RegExp(`\\$t\\(([\\w\\-${ns}${key}]{3,})\\)`, 'g'),
         /** i18n.tr function .tr("xxx") */
-        new RegExp(`\\.tr\\("([\\w\\-${ns}${key}]{3,})"`, 'g'),
+        new RegExp(`\\.tr?\\("([\\w\\-${ns}${key}]{3,})"`, 'g'),
         /** i18n.tr function .tr('xxx') */
-        new RegExp(`\\.tr\\('([\\w\\-${ns}${key}]{3,})'`, 'g'),
+        new RegExp(`\\.tr?\\('([\\w\\-${ns}${key}]{3,})'`, 'g'),
       ],
       /** Custom RegExps */
       custom: this._options.customMatchers,

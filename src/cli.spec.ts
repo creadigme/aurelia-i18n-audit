@@ -78,7 +78,7 @@ describe('cli', () => {
         '\u001b[33m\t\t- samples/case_01/src/sample.html:8:40\u001b[39m',
         '\u001b[33m\t\t- samples/case_01/src/sample.html:14:38\u001b[39m',
         '\u001b[31m\tEASY:MIDDLE\u001b[39m',
-        '\u001b[33m\t\t- samples/case_01/src/sample.ts:19:20\u001b[39m',
+        '\u001b[33m\t\t- samples/case_01/src/sample.ts:19:21\u001b[39m',
         '',
         '',
       ]);
@@ -101,7 +101,7 @@ describe('cli', () => {
         '\u001b[33m\t\t- samples/case_01/src/sample.html:8:40\u001b[39m',
         '\u001b[33m\t\t- samples/case_01/src/sample.html:14:38\u001b[39m',
         '\u001b[31m\tEASY:MIDDLE\u001b[39m',
-        '\u001b[33m\t\t- samples/case_01/src/sample.ts:19:20\u001b[39m',
+        '\u001b[33m\t\t- samples/case_01/src/sample.ts:19:21\u001b[39m',
         '',
         '\u001b[1m\u001b[31m[i18n] 4 keys do not have all the languages translated.\u001b[39m\u001b[22m',
         '\u001b[31m\tEASY:STOP (en)\u001b[39m',

@@ -66,15 +66,15 @@
     "js-yaml": "^4.1.0"
   },
   "scripts": {
-    "clean": "node ./node_modules/rimraf ./dist && node ./node_modules/rimraf ./coverage && node ./node_modules/rimraf ./.nyc_output && node ./node_modules/rimraf ./node_modules",
+    "clean": "rimraf ./dist && rimraf ./coverage && rimraf ./.nyc_output && rimraf ./node_modules",
     "lint": "node ./node_modules/eslint/bin/eslint ./src/**/*.{js,ts,tsx}",
     "lint:fix": "node ./node_modules/eslint/bin/eslint ./src/**/*.{js,ts,tsx} --fix",
     "test": "yarn tsc && node ./node_modules/mocha/bin/mocha --timeout 15000 ./build/**/*.spec.js",
     "test:coverage": "nyc --reporter=html --reporter=text --reporter=json --reporter=text-summary npm test",
     "analyze": "node  ./node_modules/rimraf dist && node ./node_modules/webpack/bin/webpack --env production --analyze",
-    "tsc": "node ./node_modules/rimraf build && node ./node_modules/typescript/bin/tsc",
+    "tsc": "rimraf build && node ./node_modules/typescript/bin/tsc",
     "build:dts": "tsc --project ./tsconfig.bundle.json && node ./.build/build-typings.js",
-    "build": "yarn tsc && node ./node_modules/rimraf dist && node ./node_modules/webpack/bin/webpack --mode=production && npm run build:dts",
+    "build": "yarn tsc && rimraf dist && node ./node_modules/webpack/bin/webpack --mode=production && npm run build:dts",
     "codecov": "./node_modules/.bin/codecov"
   }
 }

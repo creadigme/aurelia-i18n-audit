@@ -340,6 +340,72 @@ describe('i18n-seeker', () => {
       });
     });
 
+    describe('TypeScript - t<string>(', () => {
+      it('ns:key.subkey', async () => {
+        const keys = getI18NKeys(
+          seeker,
+          `
+          public something() {
+            return [tr<string>('EASY:KEY.START'), t<string>("EASY:KEY.STOP"), this.something.abtr('EASY:KEY3')];
+          }`,
+          '.ts'
+        );
+
+        assert.strictEqual(keys.length, 2);
+
+        assert.strictEqual(keys[0], 'EASY:KEY.START');
+        assert.strictEqual(keys[1], 'EASY:KEY.STOP');
+      });
+
+      it('ns:key', async () => {
+        const keys = getI18NKeys(
+          seeker,
+          `
+          public something() {
+            return [t<string>('EASY:KEY'), t<string>("EASY:KEY2"), this.something.abt('EASY:KEY3')];
+          }`,
+          '.ts'
+        );
+
+        assert.strictEqual(keys.length, 2);
+
+        assert.strictEqual(keys[0], 'EASY:KEY');
+        assert.strictEqual(keys[1], 'EASY:KEY2');
+      });
+
+      it('key.subkey', async () => {
+        const keys = getI18NKeys(
+          seeker,
+          `
+          public something() {
+            return [t<string>('KEY.START'), tr<string>("KEY.STOP"), this.something.ab('EASY:KEY3')];
+          }`,
+          '.ts'
+        );
+
+        assert.strictEqual(keys.length, 2);
+
+        assert.strictEqual(keys[0], 'KEY.START');
+        assert.strictEqual(keys[1], 'KEY.STOP');
+      });
+
+      it('key', async () => {
+        const keys = getI18NKeys(
+          seeker,
+          `
+          public something() {
+            return [t<string>('START'), tr<string>("STOP"), this.something.ab('KEY3')];
+          }`,
+          '.ts'
+        );
+
+        assert.strictEqual(keys.length, 2);
+
+        assert.strictEqual(keys[0], 'START');
+        assert.strictEqual(keys[1], 'STOP');
+      });
+    });
+
     describe('Auto discovery', () => {
       const customSeeker: I18NSeeker = new I18NSeeker();
 

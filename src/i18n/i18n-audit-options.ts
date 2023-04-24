@@ -29,7 +29,7 @@ export class I18NAuditOptions {
     if (options._isInit) {
       Object.assign(this, options);
     } else {
-      this.srcPaths = options.srcPaths?.map(f => forwardSlash(path.join(f, `/**/!(*.spec).{ts,js,html}`))) || [];
+      this.srcPaths = options.srcPaths?.map(f => forwardSlash(path.join(f, `/**/!(*.spec).{ts,tsx,js,jsx,html}`))) || [];
       this.ignoreKeys = options.ignoreKeys;
       this.level = options.level || ELevel.MEDIUM;
       this.local = options.local;

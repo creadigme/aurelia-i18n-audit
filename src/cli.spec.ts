@@ -26,7 +26,7 @@ describe('cli', () => {
     it('mode unknown', async () => {
       const res = await testCLIAsync('--src', './samples/case_01/src/', '--i18n', './samples/case_01/i18n', '--mode', 'unknown');
       assert.strictEqual(res.exitCode, 1);
-      assert.strictEqual(res.stdout, `\x1B[1m\x1B[4m\x1B[94m[i18n] @creadigme/au-i18n-audit v999.0.0.\x1B[39m\x1B[24m\x1B[22m\n\x1B[31m[i18n] Invalid mode: unknown.\x1B[39m\n`);
+      assert.strictEqual(res.stdout, `\x1B[1m\x1B[4m\x1B[94m[i18n] @creadigme/au-i18n-audit v${version}.\x1B[39m\x1B[24m\x1B[22m\n\x1B[31m[i18n] Invalid mode: unknown.\x1B[39m\n`);
     });
   });
 
